@@ -12,5 +12,9 @@ fi
 
 # Customize to your needs...
 
+# Go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export GOPATH=~/devel/gowork
+
 # Z
 . ~/tools/z/z.sh
