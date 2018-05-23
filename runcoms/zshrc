@@ -23,3 +23,6 @@ export GOPATH=~/devel/gowork
 alias mci="mvn clean install -q"
 alias mi="mvn install -q"
 alias mcist="mvn clean install -Dtest.skip=true -q"
+
+#fzf
+export FZF_DEFAULT_OPTS='-m --reverse --color fg:-1,bg:-1,hl:33,fg+:254,bg+:235,hl+:33 --color info:136,prompt:136,spinner:136,pointer:230,marker:33'
