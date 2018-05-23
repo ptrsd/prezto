@@ -18,3 +18,8 @@ export GOPATH=~/devel/gowork
 
 # Z
 . ~/tools/z/z.sh
+
+# mvn
+alias mci="mvn clean install -q"
+alias mi="mvn install -q"
+alias mcist="mvn clean install -Dtest.skip=true -q"
