@@ -11,6 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+export EDITOR=vim
 
 # Go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
@@ -25,4 +26,30 @@ alias mi="mvn install -q"
 alias mcist="mvn clean install -Dtest.skip=true -q"
 
 #fzf
-export FZF_DEFAULT_OPTS='-m --reverse --color fg:-1,bg:-1,hl:33,fg+:254,bg+:235,hl+:33 --color info:136,prompt:136,spinner:136,pointer:230,marker:33'
+export FZF_DEFAULT_OPTS='--inline-info --tabstop=2 -m --reverse --color fg:-1,bg:-1,hl:33,fg+:254,bg+:235,hl+:33 --color info:136,prompt:136,spinner:136,pointer:230,marker:33'
+
+#docker
+function drmf() {
+    docker rm -f `docker ps -a | fzf-tmux --reverse --multi --header-lines=1 --header="docker rm -f" --height=10% --border | awk '{print $1}'`
+}
+
+function drmif() {
+    docker rmi -f `docker images | fzf-tmux --reverse --multi --header-lines=1 --header="docker rmi -f" --height=10% --border | awk '{print $1}'`
+}
+
+function dbash() {
+    docker exec -it `docker ps --format 'table {{.ID}}\t{{.Names}}' | fzf-tmux --reverse --multi --header-lines=1 --height=10% --border --header="docker sh"| awk '{print $1}'` sh
+}
+
+function dlog() {
+    docker logs --tail 50 -f `docker ps -a --format 'table {{.ID}}\t{{.Names}}' | fzf-tmux --reverse --multi --height=10% --header-lines=1 --border --header="docker logs"| awk '{print $1}'`
+}
+
+function dwatch() {
+    watch  --color -n 1 "docker ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | GREP_COLOR='01;31' grep -E --color=always '.*unhealthy.*|\$' | GREP_COLOR='01;33' egrep -i --color=always '.*starting.*|$' | GREP_COLOR='01;30' grep -E --color=always '.*Exited.*|$'"
+}
+
+#git
+function gaf() {
+    git add `g ss | awk '{ print $2 }' |  fzf -m --ansi --height 50% --preview-window=down:50 --header=$(git config --get remote.origin.url) --bind pgup:preview-up,pgdn:preview-down --preview="git diff HEAD {}"`
+}
