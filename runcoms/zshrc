@@ -53,3 +53,5 @@ function dwatch() {
 function gaf() {
     git add `g ss | awk '{ print $2 }' |  fzf -m --ansi --height 50% --preview-window=down:50 --header=$(git config --get remote.origin.url) --bind pgup:preview-up,pgdn:preview-down --preview="git diff HEAD {}"`
 }
+
+alias g-="git checkout -"
