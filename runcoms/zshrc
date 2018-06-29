@@ -46,7 +46,7 @@ function dlog() {
 }
 
 function dwatch() {
-    watch  --color -n 1 "docker ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}' | GREP_COLOR='01;31' grep -E --color=always '.*unhealthy.*|\$' | GREP_COLOR='01;33' egrep -i --color=always '.*starting.*|$' | GREP_COLOR='01;30' grep -E --color=always '.*Exited.*|$'"
+    watch  --color -n 1 "docker ps -a --format 'table {{.Names}}\t{{.Status}}' | GREP_COLOR='01;31' grep -E --color=always '.*unhealthy.*|\$' | GREP_COLOR='01;33' egrep -i --color=always '.*starting.*|$' | GREP_COLOR='01;30' grep -E --color=always '.*Exited.*|$'"
 }
 
 #git
